@@ -52,12 +52,30 @@ def sign_up():
 				usr = user(username, password)
 				db.session.add(usr)
 				db.session.commit()
-			return redirect(url_for('home'))
+				flash('Account created!')
+				return redirect(url_for('home'))
 		else:
 			flash('Passwords does not match!')
 			return render_template('signup.html')
 	else:
 		return render_template('signup.html')
+
+@app.route('/delete', methods=['POST', 'GET'])
+def deleteAcc():
+	if request.method == 'POST':
+		username = request.form['username']
+		password = request.form['password']
+		found_user = user.query.filter_by(username=username, password=password).first()
+		if found_user:
+			db.session.delete(found_user)
+			db.session.commit()
+			flash('Account deleted!')
+			return redirect(url_for('home'))
+		else:
+			flash("Account doesn't exists")
+			return render_template('deleteAcc.html')
+	else:
+		return render_template('deleteAcc.html')
 
 
 if __name__ == '__main__':
