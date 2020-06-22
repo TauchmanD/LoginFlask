@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+{% block content %}
+    <h1>Register</h1>
+        {% with messages = get_flashed_messages() %}
+            {%if messages%}
+                {%for msg in messages%}
+                    <p>{{msg}}</p>
+                {%endfor%}
+            {%endif%}
+        {% endwith %}
+    <form action="#" method="POST">
+        <input type="text" name="username" placeholder="Name">
+        <input type="password" name="password" placeholder="Password">
+        <input type="password" name="rp" placeholder="Password">
+        <input type="submit" value="Create new acc">
+    </form>
+    <p><a href="/">Zpět</a></p>
+{% endblock %}

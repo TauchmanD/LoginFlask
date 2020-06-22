@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+{% block content %}
+    <h1>Welcome!</h1>
+        {% with messages = get_flashed_messages() %}
+            {%if messages%}
+                {%for msg in messages%}
+                    <p>{{msg}}</p>
+                {%endfor%}
+            {%endif%}
+        {% endwith %}
+    <p>Tvoje jméno: {{username}}</p>
+    <p>Tvoje heslo: {{password}}</p>
+{% endblock %}
