@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %} Delete {% endblock %}
+{% block content %}
+    <h1>Del</h1>
+        {% with messages = get_flashed_messages() %}
+            {%if messages%}
+                {%for msg in messages%}
+                    <p>{{msg}}</p>
+                {%endfor%}
+            {%endif%}
+        {% endwith %}
+    {%for user in users%}
+    	<p>Uživatel{{user._id}} - jméno: <span style="color:red">{{user.username}}</span> heslo: <span style="color:red">{{user.password}}</span></p>
+    {%endfor%}
+{% endblock %}
