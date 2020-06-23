@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %} AddTT {% endblock %}
+{% block content %}
+    <h1>AddTT</h1>
+        {% with messages = get_flashed_messages() %}
+            {%if messages%}
+                {%for msg in messages%}
+                    <p>{{msg}}</p>
+                {%endfor%}
+            {%endif%}
+        {% endwith %}
+    <form action="#" method="POST">
+        <input type="text" name="firstName" placeholder="First Name">
+        <input type="text" name="lastName" placeholder="Last Name">
+        <input type="number" name="age" placeholder="Age">
+        <input type="text" name="league" placeholder="League">
+        <input type="number" name="percentage" placeholder="Percentage">
+        <input type="submit" value="Add TTPlayer">
+    </form>
+    <p><a href="/">Zpět</a></p>
+{% endblock %}

@@ -20,6 +20,22 @@ class user(db.Model):
 		self.password = password
 
 
+class ttPlayer(db.Model):
+	_id = db.Column('id', db.Integer, primary_key=True)
+	first_name = db.Column(db.String(100))
+	last_name = db.Column(db.String(100))
+	age = db.Column(db.Integer())
+	league = db.Column(db.String(100))
+	percentage = db.Column(db.Integer())
+
+	def __init__(self, first_name, last_name, age, league, percentage):
+		self.first_name = first_name
+		self.last_name = last_name
+		self.age = age
+		self.league = league
+		self.percentage = percentage
+
+
 @app.route('/', methods=['POST', 'GET'])
 def home():
 	if request.method == 'POST':
@@ -60,7 +76,7 @@ def sign_up():
 	else:
 		return render_template('signup.html')
 
-@app.route('/delete', methods=['POST', 'GET'])
+@app.route('/delete/', methods=['POST', 'GET'])
 def deleteAcc():
 	if request.method == 'POST':
 		username = request.form['username']
@@ -77,10 +93,35 @@ def deleteAcc():
 	else:
 		return render_template('deleteAcc.html')
 
+@app.route('/addTT', methods=['POST', 'GET'])
+def addTT():
+	if request.method == 'POST':
+		first_name = request.form['firstName']
+		last_name = request.form['lastName']
+		age = request.form['age']
+		league = request.form['league']
+		percentage = request.form['percentage']
+		ttP = ttPlayer(first_name, last_name, age, league, percentage)
+		find_ttP = ttPlayer.query.filter_by(first_name=first_name, last_name =last_name, age=age, league=league, percentage=percentage).first()
+		if find_ttP:
+			flash('This player already exists!')
+		else:
+			db.session.add(ttP)
+			db.session.commit()
+			flash('Player sucesfuly added!')
+		render_template('addTT.html')
+	return render_template('addTT.html')
+
+
+
+
+
+
 @app.route('/allAccs/', methods=['POST', 'GET'])
 def adminDelete():
-	list = user.query.all()
-	return render_template('adminDel.html', users=list)
+	listUsers = user.query.all()
+	ttPlayers = ttPlayer.query.all()
+	return render_template('adminDel.html', users=listUsers, ttPs=ttPlayers)
 
 
 

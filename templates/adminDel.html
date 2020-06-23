@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% block title %} Delete {% endblock %}
+{% block title %} Accounts {% endblock %}
 {% block content %}
-    <h1>Del</h1>
+    <h1>List of accounts</h1>
         {% with messages = get_flashed_messages() %}
             {%if messages%}
                 {%for msg in messages%}
@@ -11,5 +11,8 @@
         {% endwith %}
     {%for user in users%}
     	<p>Uživatel{{user._id}} - jméno: <span style="color:red">{{user.username}}</span> heslo: <span style="color:red">{{user.password}}</span></p>
+    {%endfor%}
+    {%for ttP in ttPs%}
+    	<p>Player{{ttP._id}} - {{ttP.first_name}} {{ttP.last_name}} {{ttP.age}} {{ttP.league}} - {{ttP.percentage}}%</p>
     {%endfor%}
 {% endblock %}
